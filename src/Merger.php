@@ -1,14 +1,14 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf;
+namespace Benjivm\MergePdf;
 
-use iio\libmergepdf\Driver\DriverInterface;
-use iio\libmergepdf\Driver\DefaultDriver;
-use iio\libmergepdf\Source\SourceInterface;
-use iio\libmergepdf\Source\FileSource;
-use iio\libmergepdf\Source\RawSource;
+use Benjivm\MergePdf\Driver\DefaultDriver;
+use Benjivm\MergePdf\Driver\DriverInterface;
+use Benjivm\MergePdf\Source\FileSource;
+use Benjivm\MergePdf\Source\RawSource;
+use Benjivm\MergePdf\Source\SourceInterface;
 
 /**
  * Merge existing pdfs into one
@@ -27,15 +27,15 @@ final class Merger
      */
     private $driver;
 
-    public function __construct(DriverInterface $driver = null)
+    public function __construct(?DriverInterface $driver = null)
     {
-        $this->driver = $driver ?: new DefaultDriver;
+        $this->driver = $driver ?: new DefaultDriver();
     }
 
     /**
      * Add raw PDF from string
      */
-    public function addRaw(string $content, PagesInterface $pages = null): void
+    public function addRaw(string $content, ?PagesInterface $pages = null): void
     {
         $this->sources[] = new RawSource($content, $pages);
     }
@@ -43,7 +43,7 @@ final class Merger
     /**
      * Add PDF from file
      */
-    public function addFile(string $filename, PagesInterface $pages = null): void
+    public function addFile(string $filename, ?PagesInterface $pages = null): void
     {
         $this->sources[] = new FileSource($filename, $pages);
     }
@@ -52,9 +52,9 @@ final class Merger
      * Add files using iterator
      *
      * @param iterable<string> $iterator Set of filenames to add
-     * @param PagesInterface $pages Optional pages constraint used for every added pdf
+     * @param PagesInterface   $pages    Optional pages constraint used for every added pdf
      */
-    public function addIterator(iterable $iterator, PagesInterface $pages = null): void
+    public function addIterator(iterable $iterator, ?PagesInterface $pages = null): void
     {
         foreach ($iterator as $filename) {
             $this->addFile($filename, $pages);

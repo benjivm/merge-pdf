@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf;
+namespace Benjivm\MergePdf;
 
 /**
  * Parse page numbers from string
@@ -33,11 +33,13 @@ final class Pages implements PagesInterface
                 continue;
             }
             if (ctype_digit($expr)) {
-                $this->addPage((int)$expr);
+                $this->addPage((int) $expr);
+
                 continue;
             }
             if (preg_match("/^(\d+)-(\d+)/", $expr, $matches)) {
-                $this->addRange((int)$matches[1], (int)$matches[2]);
+                $this->addRange((int) $matches[1], (int) $matches[2]);
+
                 continue;
             }
             throw new Exception("Invalid page number(s) for expression '$expr'");

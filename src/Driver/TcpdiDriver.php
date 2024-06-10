@@ -1,22 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Driver;
+namespace Benjivm\MergePdf\Driver;
 
-use iio\libmergepdf\Exception;
-use iio\libmergepdf\Source\SourceInterface;
+use Benjivm\MergePdf\Exception;
+use Benjivm\MergePdf\Source\SourceInterface;
+use TCPDI;
 
 final class TcpdiDriver implements DriverInterface
 {
     /**
-     * @var \TCPDI
+     * @var TCPDI
      */
     private $tcpdi;
 
-    public function __construct(\TCPDI $tcpdi = null)
+    public function __construct(?TCPDI $tcpdi = null)
     {
-        $this->tcpdi = $tcpdi ?: new \TCPDI;
+        $this->tcpdi = $tcpdi ?: new TCPDI();
     }
 
     public function merge(SourceInterface ...$sources): string

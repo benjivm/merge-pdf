@@ -1,14 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Driver;
+namespace Benjivm\MergePdf\Driver;
 
-use iio\libmergepdf\Exception;
-use iio\libmergepdf\Source\SourceInterface;
+use Benjivm\MergePdf\Exception;
+use Benjivm\MergePdf\Source\SourceInterface;
+use InvalidArgumentException;
 use setasign\Fpdi\Fpdi as FpdiFpdf;
-use setasign\Fpdi\Tcpdf\Fpdi as FpdiTcpdf;
 use setasign\Fpdi\PdfParser\StreamReader;
+use setasign\Fpdi\Tcpdf\Fpdi as FpdiTcpdf;
 
 final class Fpdi2Driver implements DriverInterface
 {
@@ -24,10 +25,10 @@ final class Fpdi2Driver implements DriverInterface
     {
         // Tcpdf generates warnings due to argument ordering with php 8
         // suppressing errors is a dirty hack until tcpdf is patched
-        $this->fpdi = $fpdi ?: @new FpdiTcpdf;
+        $this->fpdi = $fpdi ?: @new FpdiTcpdf();
 
-        if (!($this->fpdi instanceof FpdiFpdf) && !($this->fpdi instanceof FpdiTcpdf)) {
-            throw new \InvalidArgumentException('Constructor argument must be an FPDI instance.');
+        if (! ($this->fpdi instanceof FpdiFpdf) && ! ($this->fpdi instanceof FpdiTcpdf)) {
+            throw new InvalidArgumentException('Constructor argument must be an FPDI instance.');
         }
     }
 

@@ -1,15 +1,11 @@
-# libmergepdf
+# Merge PDF
 
-[![Packagist Version](https://img.shields.io/packagist/v/iio/libmergepdf.svg?style=flat-square)](https://packagist.org/packages/iio/libmergepdf)
-[![Build Status](https://img.shields.io/travis/hanneskod/libmergepdf/master.svg?style=flat-square)](https://travis-ci.com/github/hanneskod/libmergepdf)
-[![Quality Score](https://img.shields.io/scrutinizer/g/hanneskod/libmergepdf.svg?style=flat-square)](https://scrutinizer-ci.com/g/hanneskod/libmergepdf)
-
-PHP library for merging multiple PDFs.
+Personal project fork of the original [hanneskod/libmergepdf](https://github.com/hanneskod/libmergepdf) PHP library for merging multiple PDFs. Use at your own risk.
 
 ## Installation
 
 ```shell
-composer require iio/libmergepdf
+composer require benjivm/merge-pdf
 ```
 
 ## Usage
@@ -17,8 +13,8 @@ composer require iio/libmergepdf
 Append the first ten pages of **bar.pdf** to **foo.pdf**:
 
 ```php
-use iio\libmergepdf\Merger;
-use iio\libmergepdf\Pages;
+use Benjivm\MergePdf\Merger;
+use Benjivm\MergePdf\Pages;
 
 $merger = new Merger;
 $merger->addFile('foo.pdf');
@@ -29,7 +25,7 @@ $createdPdf = $merger->merge();
 Bulk add files from an iterator:
 
 ```php
-use iio\libmergepdf\Merger;
+use Benjivm\MergePdf\Merger;
 
 $merger = new Merger;
 $merger->addIterator(['A.pdf', 'B.pdf']);
@@ -42,8 +38,8 @@ The default `FPDI` driver is not able handle compressed pdfs of version 1.5 or l
 Circumvent this limitation by using the slightly more experimental `TCPDI` driver.
 
 ```php
-use iio\libmergepdf\Merger;
-use iio\libmergepdf\Driver\TcpdiDriver;
+use Benjivm\MergePdf\Merger;
+use Benjivm\MergePdf\Driver\TcpdiDriver;
 
 $merger = new Merger(new TcpdiDriver);
 ```
@@ -53,9 +49,9 @@ $merger = new Merger(new TcpdiDriver);
 Immutability may be achieved by using a `driver` directly.
 
 ```php
-use iio\libmergepdf\Driver\Fpdi2Driver;
-use iio\libmergepdf\Source\FileSource;
-use iio\libmergepdf\Pages;
+use Benjivm\MergePdf\Driver\Fpdi2Driver;
+use Benjivm\MergePdf\Source\FileSource;
+use Benjivm\MergePdf\Pages;
 
 $merger = new Fpdi2Driver;
 

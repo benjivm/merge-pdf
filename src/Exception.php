@@ -1,7 +1,5 @@
 <?php
 
-namespace iio\libmergepdf;
+namespace Benjivm\MergePdf;
 
-final class Exception extends \Exception
-{
-}
+final class Exception extends \Exception {}

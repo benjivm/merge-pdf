@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Driver;
+namespace Benjivm\MergePdf\Driver;
 
-use iio\libmergepdf\Source\SourceInterface;
+use Benjivm\MergePdf\Source\SourceInterface;
 
 final class DefaultDriver implements DriverInterface
 {
@@ -13,9 +13,9 @@ final class DefaultDriver implements DriverInterface
      */
     private $wrapped;
 
-    public function __construct(DriverInterface $wrapped = null)
+    public function __construct(?DriverInterface $wrapped = null)
     {
-        $this->wrapped = $wrapped ?: new Fpdi2Driver;
+        $this->wrapped = $wrapped ?: new Fpdi2Driver();
     }
 
     public function merge(SourceInterface ...$sources): string

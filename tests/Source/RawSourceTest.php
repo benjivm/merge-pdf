@@ -1,14 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Source;
+namespace Tests\Source;
 
-use iio\libmergepdf\PagesInterface;
+use Benjivm\MergePdf\PagesInterface;
+use Benjivm\MergePdf\Source\RawSource;
 
 class RawSourceTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetName()
+    public function test_get_name()
     {
         $this->assertSame(
             'raw-content',
@@ -16,7 +17,7 @@ class RawSourceTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testgetContents()
+    public function testget_contents()
     {
         $this->assertSame(
             'foobar',
@@ -24,9 +25,9 @@ class RawSourceTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testGetPages()
+    public function test_get_pages()
     {
-        $pages = $this->createMock(PagesInterface::CLASS);
+        $pages = $this->createMock(PagesInterface::class);
         $this->assertSame(
             $pages,
             (new RawSource('', $pages))->getPages()

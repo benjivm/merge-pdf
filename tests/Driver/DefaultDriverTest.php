@@ -1,19 +1,36 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Driver;
+namespace Tests\Driver;
 
-use iio\libmergepdf\Source\SourceInterface;
+use Benjivm\MergePdf\Driver\DefaultDriver;
+use Benjivm\MergePdf\Driver\DriverInterface;
+use Benjivm\MergePdf\Source\SourceInterface;
+use PHPUnit\Framework\MockObject\Exception;
+use Prophecy\Prophet;
 
 class DefaultDriverTest extends \PHPUnit\Framework\TestCase
 {
-    public function testMerge()
-    {
-        $wrapped = $this->prophesize(DriverInterface::CLASS);
+    /**
+     * @var Prophet
+     */
+    private $prophet;
 
-        $source1 = $this->createMock(SourceInterface::CLASS);
-        $source2 = $this->createMock(SourceInterface::CLASS);
+    protected function setUp(): void
+    {
+        $this->prophet = new Prophet();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_merge(): void
+    {
+        $wrapped = $this->prophet->prophesize(DriverInterface::class);
+
+        $source1 = $this->createMock(SourceInterface::class);
+        $source2 = $this->createMock(SourceInterface::class);
 
         $wrapped->merge($source1, $source2)->willReturn('foo')->shouldBeCalled();
 

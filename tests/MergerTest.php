@@ -1,61 +1,95 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf;
+namespace Tests;
 
-use iio\libmergepdf\Driver\DriverInterface;
-use iio\libmergepdf\Source\FileSource;
-use iio\libmergepdf\Source\RawSource;
+use Benjivm\MergePdf\Driver\DriverInterface;
+use Benjivm\MergePdf\Merger;
+use Benjivm\MergePdf\PagesInterface;
+use Benjivm\MergePdf\Source\FileSource;
+use Benjivm\MergePdf\Source\RawSource;
+use PHPUnit\Framework\MockObject\Exception;
+use Prophecy\Prophet;
 
 class MergerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAddRaw()
-    {
-        $pages = $this->createMock(PagesInterface::CLASS);
+    /**
+     * @var Prophet
+     */
+    private $prophet;
 
-        $driver = $this->prophesize(DriverInterface::CLASS);
+    protected function setUp(): void
+    {
+        $this->prophet = new Prophet();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_add_raw()
+    {
+        $pages = $this->createMock(PagesInterface::class);
+
+        $driver = $this->prophet->prophesize(DriverInterface::class);
         $driver->merge(new RawSource('foo', $pages))->willReturn('')->shouldBeCalled();
 
         $merger = new Merger($driver->reveal());
         $merger->addRaw('foo', $pages);
         $merger->merge();
+
+        $this->expectNotToPerformAssertions();
     }
 
-    public function testAddFile()
+    /**
+     * @throws Exception|\Benjivm\MergePdf\Exception
+     */
+    public function test_add_file()
     {
-        $pages = $this->createMock(PagesInterface::CLASS);
+        $pages = $this->createMock(PagesInterface::class);
 
-        $driver = $this->prophesize(DriverInterface::CLASS);
+        $driver = $this->prophet->prophesize(DriverInterface::class);
         $driver->merge(new FileSource(__FILE__, $pages))->willReturn('')->shouldBeCalled();
 
         $merger = new Merger($driver->reveal());
         $merger->addFile(__FILE__, $pages);
         $merger->merge();
+
+        $this->expectNotToPerformAssertions();
     }
 
-    public function testAddIterator()
+    /**
+     * @throws Exception|\Benjivm\MergePdf\Exception
+     */
+    public function test_add_iterator()
     {
-        $pages = $this->createMock(PagesInterface::CLASS);
+        $pages = $this->createMock(PagesInterface::class);
 
-        $driver = $this->prophesize(DriverInterface::CLASS);
+        $driver = $this->prophet->prophesize(DriverInterface::class);
         $driver->merge(new FileSource(__FILE__, $pages))->willReturn('')->shouldBeCalled();
 
         $merger = new Merger($driver->reveal());
         $merger->addIterator([__FILE__], $pages);
         $merger->merge();
+
+        $this->expectNotToPerformAssertions();
     }
 
-    public function testReset()
+    /**
+     * @throws Exception
+     */
+    public function test_reset()
     {
-        $pages = $this->createMock(PagesInterface::CLASS);
+        $pages = $this->createMock(PagesInterface::class);
 
-        $driver = $this->prophesize(DriverInterface::CLASS);
+        $driver = $this->prophet->prophesize(DriverInterface::class);
         $driver->merge()->willReturn('')->shouldBeCalled();
 
         $merger = new Merger($driver->reveal());
         $merger->addRaw('foo', $pages);
         $merger->reset();
         $merger->merge();
+
+        $this->expectNotToPerformAssertions();
     }
 }

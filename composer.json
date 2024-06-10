@@ -1,8 +1,8 @@
 {
-    "name": "iio/libmergepdf",
+    "name": "benjivm/merge-pdf",
     "description": "Library for merging multiple PDFs",
     "keywords": ["pdf", "merge"],
-    "homepage": "https://github.com/hanneskod/libmergepdf",
+    "homepage": "https://github.com/benjivm/merge-pdf",
     "type": "library",
     "license": "WTFPL",
     "authors": [
@@ -13,11 +13,16 @@
     ],
     "autoload": {
         "psr-4": {
-            "iio\\libmergepdf\\": "src/"
+            "Benjivm\\MergePdf\\": "src/"
         },
         "classmap": [
             "tcpdi/"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "require": {
         "php": "^7.1||^8.0",
@@ -25,11 +30,13 @@
         "setasign/fpdi": "^2"
     },
     "conflict": {
-        "setasign/fpdf": "*",
-        "rafikhaceb/tcpdi": "*"
+        "setasign/fpdf": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7|^8",
-        "smalot/pdfparser": "~0.13"
+        "phpunit/phpunit": "^10",
+        "smalot/pdfparser": "~0.13",
+        "phpspec/prophecy": "^1.19",
+        "friendsofphp/php-cs-fixer": "^3.9",
+        "symfony/var-dumper": "^7.1"
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Source;
+namespace Benjivm\MergePdf\Source;
 
-use iio\libmergepdf\PagesInterface;
-use iio\libmergepdf\Pages;
-use iio\libmergepdf\Exception;
+use Benjivm\MergePdf\Exception;
+use Benjivm\MergePdf\Pages;
+use Benjivm\MergePdf\PagesInterface;
 
 /**
  * Pdf source from file
@@ -23,14 +23,14 @@ final class FileSource implements SourceInterface
      */
     private $pages;
 
-    public function __construct(string $filename, PagesInterface $pages = null)
+    public function __construct(string $filename, ?PagesInterface $pages = null)
     {
-        if (!is_file($filename) || !is_readable($filename)) {
+        if (! is_file($filename) || ! is_readable($filename)) {
             throw new Exception("Invalid file '$filename'");
         }
 
         $this->filename = $filename;
-        $this->pages = $pages ?: new Pages;
+        $this->pages = $pages ?: new Pages();
     }
 
     public function getName(): string
@@ -40,7 +40,7 @@ final class FileSource implements SourceInterface
 
     public function getContents(): string
     {
-        return (string)file_get_contents($this->filename);
+        return (string) file_get_contents($this->filename);
     }
 
     public function getPages(): PagesInterface

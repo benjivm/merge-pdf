@@ -1,6 +1,6 @@
 <?php
 
-namespace iio\libmergepdf;
+namespace Benjivm\MergePdf;
 
 interface PagesInterface
 {

@@ -1,15 +1,17 @@
-<phpunit bootstrap="./vendor/autoload.php">
-    <testsuites>
-        <testsuite name="default">
-            <directory>./tests</directory>
-        </testsuite>
-        <testsuite name="readme">
-            <file>./tests/ReadmeIntegration.php</file>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="./vendor/autoload.php"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+>
+  <testsuites>
+    <testsuite name="default">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>

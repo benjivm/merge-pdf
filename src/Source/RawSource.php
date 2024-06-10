@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Source;
+namespace Benjivm\MergePdf\Source;
 
-use iio\libmergepdf\PagesInterface;
-use iio\libmergepdf\Pages;
+use Benjivm\MergePdf\Pages;
+use Benjivm\MergePdf\PagesInterface;
 
 /**
  * Pdf source from raw string
@@ -22,15 +22,15 @@ final class RawSource implements SourceInterface
      */
     private $pages;
 
-    public function __construct(string $contents, PagesInterface $pages = null)
+    public function __construct(string $contents, ?PagesInterface $pages = null)
     {
         $this->contents = $contents;
-        $this->pages = $pages ?: new Pages;
+        $this->pages = $pages ?: new Pages();
     }
 
     public function getName(): string
     {
-        return "raw-content";
+        return 'raw-content';
     }
 
     public function getContents(): string

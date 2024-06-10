@@ -1,33 +1,46 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace iio\libmergepdf\Driver;
+namespace Tests\Driver;
 
-use iio\libmergepdf\Source\SourceInterface;
-use iio\libmergepdf\Exception;
-use iio\libmergepdf\Pages;
+use Benjivm\MergePdf\Driver\TcpdiDriver;
+use Benjivm\MergePdf\Exception;
+use Benjivm\MergePdf\Pages;
+use Benjivm\MergePdf\Source\SourceInterface;
+use Prophecy\Prophet;
+use TCPDI;
 
 class TcpdiDriverTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExceptionOnFailure()
+    /**
+     * @var Prophet
+     */
+    private $prophet;
+
+    protected function setUp(): void
     {
-        $tcpdi = $this->prophesize(\TCPDI::CLASS);
+        $this->prophet = new Prophet();
+    }
+
+    public function test_exception_on_failure()
+    {
+        $tcpdi = $this->prophet->prophesize(TCPDI::class);
         $tcpdi->setSourceData('foobar')->willThrow(new \Exception('message'));
 
-        $source = $this->prophesize(SourceInterface::CLASS);
+        $source = $this->prophet->prophesize(SourceInterface::class);
         $source->getName()->willReturn('file');
         $source->getContents()->willReturn('foobar');
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage("'message' in 'file'");
 
         (new TcpdiDriver($tcpdi->reveal()))->merge($source->reveal());
     }
 
-    public function testMerge()
+    public function test_merge()
     {
-        $tcpdi = $this->prophesize(\TCPDI::CLASS);
+        $tcpdi = $this->prophet->prophesize(TCPDI::class);
 
         $tcpdi->setSourceData('data')->willReturn(2);
 
@@ -46,7 +59,7 @@ class TcpdiDriverTest extends \PHPUnit\Framework\TestCase
 
         $tcpdi->Output('', 'S')->willReturn('created-pdf');
 
-        $source = $this->prophesize(SourceInterface::CLASS);
+        $source = $this->prophet->prophesize(SourceInterface::class);
         $source->getName()->willReturn('');
         $source->getContents()->willReturn('data');
         $source->getPages()->willReturn(new Pages('1, 2'));

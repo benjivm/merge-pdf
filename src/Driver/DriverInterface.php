@@ -1,8 +1,8 @@
 <?php
 
-namespace iio\libmergepdf\Driver;
+namespace Benjivm\MergePdf\Driver;
 
-use iio\libmergepdf\Source\SourceInterface;
+use Benjivm\MergePdf\Source\SourceInterface;
 
 interface DriverInterface
 {
